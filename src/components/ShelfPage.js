@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Book from './components/Book'
+
+//components
+import Book from './Book'
 
 class ShelfPage extends Component {
   render() {
@@ -10,16 +12,19 @@ class ShelfPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    {filter through books}
-                  </li>
-                </ol>
+            {this.props.shelves.map((shelf) => (
+              <div className="bookshelf">
+                <h2 className="bookshelf-title" key={shelf[1]}>{shelf[1]}</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    <li>
+
+                    </li>
+                  </ol>
+                </div>
               </div>
-            </div>
+            ))}
+
           </div>
         </div>
         <div className="open-search">
@@ -29,3 +34,5 @@ class ShelfPage extends Component {
     )
   }
 }
+
+export default ShelfPage

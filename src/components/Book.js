@@ -22,3 +22,8 @@ class Book extends Component {
     )
   }
 }
+
+
+Book.propTypes = {
+  
+}
