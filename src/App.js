@@ -24,17 +24,36 @@ class BooksApp extends React.Component {
     }))
   }
 
+  changeSelection = (book, selection) => {
+    if (selection === 'none') {
+      BooksAPI.update(book, selection).then(() => {
+        book.shelf = selection
+        this.setState(() => ({
+          books: this.state.books.filter((b) => b.id !== book.id)
+        }))
+      })
+    } else {
+      BooksAPI.update(book, selection).then(() => {
+        book.shelf = selection
+        this.setState(state => ({
+          books: this.state.books.filter(b => b.id !== book.id).concat([book])
+        }))
+      })
+    }
+  }
+
   render() {
     console.log(this.state.books)
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <ShelfPage shelves={this.shelves}
-              books={this.state.books}/>
+              books={this.state.books}
+              changeSelection={this.changeSelection}/>
         )}/>
 
         <Route path='/search' render={() => (
-          <SearchPage />
+          <SearchPage changeSelection={this.changeSelection} books={this.state.books} />
         )}/>
       </div>
     )
