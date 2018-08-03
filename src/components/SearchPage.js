@@ -19,14 +19,12 @@ class SearchPage extends Component {
   }
 
   mapShelfToBook = (book) => {
-    let shelf = 'none'
-    if (this.props.books) {
-      for (let b of this.props.books) {
-        if (b.id === book.id) {
-          shelf = b.id
-        }
+    let shelf = "none"
+    this.props.books.map((b) => {
+      if (b.id === book.id) {
+        return b.shelf
       }
-    }
+    })
     return shelf
   }
 
@@ -45,7 +43,7 @@ class SearchPage extends Component {
         })
       }
       return this.state.returnedSearch.map((book) => (
-         <Book key={book.id} shelf={this.mapShelfToBook(book)}
+         <Book key={book.id} shelf={this.props.shelves[1][0]}
                book={book}
                shelves={this.props.shelves}
                changeSelection={this.props.changeSelection}/>
@@ -61,7 +59,7 @@ class SearchPage extends Component {
   }
 
   render() {
-    console.log(this.state, "Search")
+    console.log(this.props, "Search props", this.props.shelves[2][0])
     return(
       <div className="search-books">
         <div className="search-books-bar">

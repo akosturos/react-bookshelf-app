@@ -15,7 +15,7 @@ class ShelfPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            {this.props.shelves.map(shelf => (
+            {this.props.shelves.filter(shelf => shelf !== this.props.shelves[3]).map(shelf => (
               <Shelf shelf={shelf} key={shelf[0]}
                      books={this.props.books.filter(book => book.shelf === shelf[0])}
                      shelves={this.props.shelves}

@@ -15,13 +15,14 @@ class Book extends Component {
   }
 
   render() {
+    console.log("Books", this.props, this.props.shelf)
     return(
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.getThumbnail()})`}}></div>
           <div className="book-shelf-changer">
-            <select value={this.props.book.shelf} onChange={event => this.props.changeSelection(this.props.book, event.target.value)}>
-              <option value="move" disabled>Move to...</option>
+            <select defaultValue={this.props.shelf} onChange={event => this.props.changeSelection(event.target.value, this.props.book)}>
+              <option disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>

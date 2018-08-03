@@ -16,7 +16,8 @@ class BooksApp extends React.Component {
   shelves = [
     ["currentlyReading", "Currently Reading"],
     ["wantToRead", "Want to Read"],
-    ["read", "Read"]
+    ["read", "Read"],
+    ["none", "None"]
   ]
   componentDidMount() {
     BooksAPI.getAll().then(returnedBooks => this.setState({
@@ -24,14 +25,15 @@ class BooksApp extends React.Component {
     }))
   }
 
-  changeSelection = (book, selection) => {
-    if (selection === 'none') {
-      BooksAPI.update(book, selection).then(() => {
-        book.shelf = selection
-        this.setState(() => ({
-          books: this.state.books.filter((b) => b.id !== book.id)
-        }))
-      })
+  removeBook = (book) => {
+    this.setState(() => ({
+      books: this.state.books.filter((b) => b.id !== book.id)
+    }))
+  }
+
+  changeSelection = (selection, book) => {
+    if (selection === this.shelves[3][0]) {
+      this.removeBook(book)
     } else {
       BooksAPI.update(book, selection).then(() => {
         book.shelf = selection
@@ -52,8 +54,14 @@ class BooksApp extends React.Component {
               changeSelection={this.changeSelection}/>
         )}/>
 
-        <Route path='/search' render={() => (
-          <SearchPage changeSelection={this.changeSelection} books={this.state.books} />
+        <Route path='/search' render={( {history} ) => (
+          <SearchPage books={this.state.books}
+            shelves={this.shelves}
+            changeSelection={(selection, book) => {
+              this.changeSelection(selection, book)
+              if(selection !== this.shelves[2][0])
+                history.push('/')
+            }} />
         )}/>
       </div>
     )
