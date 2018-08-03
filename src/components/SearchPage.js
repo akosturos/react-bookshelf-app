@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 //components
-import Book from './Book'
+//import Book from './Book'
 
 class SearchPage extends Component {
   render() {
