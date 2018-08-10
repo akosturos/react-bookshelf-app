@@ -18,47 +18,31 @@ class SearchPage extends Component {
     }))
   }
 
-/*
-  mapShelfToBook (book) {
-    let shelf = 'none'
-    this.props.books.map((b) => {
-      if (b.id === book.id) {
-        return shelf = b.id
-      }
-    })
-  }
-*/
   mapShelfToBook (book) {
     let shelf = 'none'
     for (var books of this.props.books) {
       if (books.id === book.id) {
-        shelf = books.id
+        shelf = books.shelf
       }
     }
     return shelf
   }
 
   returnSearch () {
-    //if (this.state.query.length !== 0) {
+    if (this.state.query.length !== 0) {
       if (this.state.query) {
         BooksAPI.search(this.state.query).then((returnedSearch) => {
           if (returnedSearch.error) {
             this.setState({ returnedSearch: [] })
             console.log("Error in returning API BooksAPI.search() call", returnedSearch.error)
-            return <h2>There are no books to display</h2>
+            //return <h2>There are no books to display</h2>
           }
           else {
             this.setState({ returnedSearch })
           }
         })
       }
-      return this.state.returnedSearch.map((book) => (
-         <Book key={book.id} shelf={this.mapShelfToBook(book)}
-               book={book}
-               shelves={this.props.shelves}
-               changeSelection={this.props.changeSelection}/>
-           ))
-    //}
+    }
   }
 
   componentWillUnmount() {
@@ -70,6 +54,7 @@ class SearchPage extends Component {
 
   render() {
     console.log("Search props", this.props)
+    console.log("Search props", this.state)
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -79,12 +64,20 @@ class SearchPage extends Component {
           </Link>
           <div className="search-books-input-wrapper">
             <input type="text" placeholder="Search by title or author"
-                   value={this.state.query} onChange={event => this.onQuery(event.target.value)}/>
+                   value={this.state.query} onChange={event => {
+                     this.onQuery(event.target.value)
+                     this.returnSearch()
+                   }}/>
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.returnSearch()}
+            {this.state.returnedSearch.map((book) => (
+             <Book key={book.id} shelf={this.mapShelfToBook(book)}
+                   book={book}
+                   shelves={this.props.shelves}
+                   changeSelection={this.props.changeSelection}/>
+             ))}
           </ol>
         </div>
       </div>
