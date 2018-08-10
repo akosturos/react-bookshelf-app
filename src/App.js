@@ -45,7 +45,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.books)
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -59,7 +58,7 @@ class BooksApp extends React.Component {
             shelves={this.shelves}
             changeSelection={(selection, book) => {
               this.changeSelection(selection, book)
-              if(selection !== this.shelves[2][0])
+              if(selection !== this.shelves[2][3])
                 history.push('/')
             }} />
         )}/>

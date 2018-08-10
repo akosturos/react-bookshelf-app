@@ -7,29 +7,39 @@ import Book from './Book'
 
 class SearchPage extends Component {
   state = {
-    query: "",
+    query: '',
     returnedSearch: []
   }
 
   onQuery = (query) => {
     this.setState(() => ({
       query: query.trim(),
-      returnedSearch: []
+      returnedSearch: [],
     }))
   }
 
-  mapShelfToBook = (book) => {
-    let shelf = "none"
+/*
+  mapShelfToBook (book) {
+    let shelf = 'none'
     this.props.books.map((b) => {
       if (b.id === book.id) {
-        return b.shelf
+        return shelf = b.id
       }
     })
+  }
+*/
+  mapShelfToBook (book) {
+    let shelf = 'none'
+    for (var books of this.props.books) {
+      if (books.id === book.id) {
+        shelf = books.id
+      }
+    }
     return shelf
   }
 
   returnSearch () {
-    if (this.state.query.length !== 0) {
+    //if (this.state.query.length !== 0) {
       if (this.state.query) {
         BooksAPI.search(this.state.query).then((returnedSearch) => {
           if (returnedSearch.error) {
@@ -43,12 +53,12 @@ class SearchPage extends Component {
         })
       }
       return this.state.returnedSearch.map((book) => (
-         <Book key={book.id} shelf={this.props.shelves[1][0]}
+         <Book key={book.id} shelf={this.mapShelfToBook(book)}
                book={book}
                shelves={this.props.shelves}
                changeSelection={this.props.changeSelection}/>
            ))
-    }
+    //}
   }
 
   componentWillUnmount() {
@@ -59,7 +69,7 @@ class SearchPage extends Component {
   }
 
   render() {
-    console.log(this.props, "Search props", this.props.shelves[2][0])
+    console.log("Search props", this.props)
     return(
       <div className="search-books">
         <div className="search-books-bar">

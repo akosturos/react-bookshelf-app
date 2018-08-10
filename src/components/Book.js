@@ -4,22 +4,23 @@ import React, { Component } from 'react'
 class Book extends Component {
 
   getThumbnail = () => {
-    let thumbnail = ""
+    let thumbnail = ''
     try {
       thumbnail = this.props.book.imageLinks.smallThumbnail
     }
     catch (error) {
-      thumbnail = ""
+      thumbnail = ''
     }
     return thumbnail
   }
 
   render() {
-    console.log("Books", this.props, this.props.shelf)
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.getThumbnail()})`}}></div>
+          <div className="book-cover"
+               style={{ width: 128, height: 192, backgroundImage: `url(${
+                 this.props.book.imageLinks.smallThumbnail ? this.props.book.imageLinks.smallThumbnail : ''})`}}></div>
           <div className="book-shelf-changer">
             <select defaultValue={this.props.shelf} onChange={event => this.props.changeSelection(event.target.value, this.props.book)}>
               <option disabled>Move to...</option>
@@ -31,7 +32,7 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{this.props.book.title}</div>
-        <div className="book-authors">{this.props.book.authors ? this.props.book.authors : "Unknown"}</div>
+        <div className="book-authors">{this.props.book.authors ? this.props.book.authors : 'Unknown'}</div>
       </div>
     )
   }
