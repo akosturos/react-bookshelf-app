@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 //components
 import Book from './Book'
 
@@ -24,3 +25,10 @@ class Shelf extends Component {
 }
 
 export default Shelf
+
+Shelf.propTypes = {
+  books: PropTypes.array,
+  shelf: PropTypes.array,
+  shelves: PropTypes.array,
+  changeSelection: PropTypes.func,
+}

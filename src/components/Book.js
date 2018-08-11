@@ -1,18 +1,7 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types';
 
 class Book extends Component {
-
-  getThumbnail = () => {
-    let thumbnail = ''
-    try {
-      thumbnail = this.props.book.imageLinks.smallThumbnail
-    }
-    catch (error) {
-      thumbnail = ''
-    }
-    return thumbnail
-  }
 
   render() {
     return(
@@ -37,8 +26,12 @@ class Book extends Component {
     )
   }
 }
+
 export default Book
 
 Book.propTypes = {
-
+  book: PropTypes.object,
+  shelf: PropTypes.array,
+  shelves: PropTypes.array,
+  changeSelection: PropTypes.func,
 }

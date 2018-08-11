@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 //components
 import Shelf from './Shelf.js'
@@ -7,7 +8,6 @@ import Shelf from './Shelf.js'
 
 class ShelfPage extends Component {
   render() {
-    console.log()
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -33,3 +33,9 @@ class ShelfPage extends Component {
 }
 
 export default ShelfPage
+
+ShelfPage.propTypes = {
+  books: PropTypes.array,
+  shelves: PropTypes.array,
+  changeSelection: PropTypes.func,
+}
