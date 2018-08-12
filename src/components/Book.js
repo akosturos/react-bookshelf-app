@@ -4,23 +4,24 @@ import PropTypes from 'prop-types';
 class Book extends Component {
 
   getThumbnail = () => {
-    let t
+    let thumbnail
     try {
-      t = this.props.book.imageLinks.smallThumbnail
+      thumbnail = this.props.book.imageLinks.thumbnail
     }
     catch (error) {
-      t = ''
+      thumbnail = ''
     }
-    return t
+    return thumbnail
   }
 
   render() {
+    console.log(this.props.book)
     return(
       <div className="book">
         <div className="book-top">
           <div className="book-cover"
-               style={{ width: 128, height: 192, backgroundImage: `url(${
-                 this.props.book.imageLinks.smallThumbnail ? this.props.book.imageLinks.smallThumbnail : ''})`}}></div>
+               style={{ width: 128, height: 192, backgroundImage: `url(${this.getThumbnail()}`}}></div>
+
           <div className="book-shelf-changer">
             <select defaultValue={this.props.shelf} onChange={event => this.props.changeSelection(event.target.value, this.props.book)}>
               <option disabled>Move to...</option>
