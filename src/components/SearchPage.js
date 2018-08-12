@@ -59,7 +59,7 @@ class SearchPage extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentDidMount() {
     this.setState(() => ({
       query: '',
       returnedSearch: [],
